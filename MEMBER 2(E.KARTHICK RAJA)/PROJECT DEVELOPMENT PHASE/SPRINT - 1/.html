@@ -1,0 +1,17 @@
+import tensorflow as tf import tensorflow_hub as hub
+import matplotlib.pyplot as plt import numpy as np
+import pandas as pd import seaborn as sns
+from tensorflow.keras.utils import get_file
+from sklearn.metrics import roc_curve, auc, confusion_matrix from imblearn.metrics import sensitivity_score, specificity_score
+
+import os import glob import zipfile import random
+
+# to get consistent results after multiple runs tf.random.set_seed(7)
+np.random.seed(7) random.seed(7)
+
+# 0 for benign, 1 for malignant class_names = ["benign", "malignant"]
+def download_and_extract_dataset():
+# dataset from https://github.com/udacity/dermatologist-ai # 5.3GB
+train_url = "https://s3-us-west-1.amazonaws.com/udacity- dlnfd/datasets/skin-cancer/train.zip"
+# 824.5MB
+valid_url = "https://s3-us-west-1.amazonaws.com/udacity- dlnfd/datasets/skin-cancer/valid.zip"
